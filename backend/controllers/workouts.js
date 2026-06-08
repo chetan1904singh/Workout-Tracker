@@ -30,9 +30,9 @@ async function postWorkouts(req,res){
 }
 
 async function deleteWorkouts(req,res){
-    const { title } = req.params;
+    const { id } = req.params;
     try {
-        const workout=await Workout.findOneAndDelete({title:title})
+        const workout=await Workout.findByIdAndDelete(id)
         res.status(200).json({workout});
     } catch (error) {
         res.status(400).json({error:error.message});

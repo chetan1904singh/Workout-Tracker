@@ -9,7 +9,7 @@ router.get('/:title',getOneWorkouts);
 
 router.post('/',postWorkouts)
 
-router.delete('/:title',deleteWorkouts);
+router.delete('/:id',deleteWorkouts);
 
 
 export default router;
