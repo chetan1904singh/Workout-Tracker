@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv';
 import workoutRoutes from './routes/workouts.js' 
 import mongoose from "mongoose";
+import userRoutes from'./routes/user.js'
 
 
 //midlewares
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 //routes
 app.use('/api/workouts',workoutRoutes);
+app.use('/api/users',userRoutes);
 //routes
 
 //
