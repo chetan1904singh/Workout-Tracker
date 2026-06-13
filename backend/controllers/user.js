@@ -4,10 +4,11 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt';
 
 const createToken=(id)=>{
-    return jwt.sign({_id: id},process.env.SECRET,{expiresIn:'3d'});
+    return jwt.sign({_id: id},process.env.SECRET);
 }
 
 const loginUser = async (req,res )=>{
+    
     const {email,password}=req.body;
     
     try {
@@ -30,6 +31,7 @@ const loginUser = async (req,res )=>{
     }
 }   
 
+
 const signUpUser = async (req,res )=>{
     const {email,password}=req.body;
     try {
@@ -42,6 +44,8 @@ const signUpUser = async (req,res )=>{
         res.status(400).json({error:error.message});
     }
 }
+
+
 export{
     loginUser,signUpUser
 }

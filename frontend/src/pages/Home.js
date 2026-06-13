@@ -2,26 +2,40 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import axios from 'axios'
 import WorkoutForm from '../components/WorkoutForm';
+import {Navigate} from 'react-router-dom';
 
 const Home = () => {
- const [workouts, setWorkouts] = useState(null)
+  const [workouts, setWorkouts] = useState(null);
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
+    if (!user) return;
+
     const fetchWorkouts = async () => {
       try {
-        const response = await axios.get('/api/workouts')
-        //cors error removed using proxy
-        setWorkouts(response.data.workout)
-       console.log(response.data);
-      } 
-      catch (error) {
-        console.log(error)
+        const response = await axios.get("/api/workouts", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+       console.log("Fetching workouts...");
+        setWorkouts(response.data.workout);
+      } catch (error) {
+        console.log(error);
       }
-    }
+    };
 
-    fetchWorkouts()
-  });
-
+    fetchWorkouts();
+  }, [user]);
+ 
+  
+  //if not logged in(no token in local st.) redirect to /login
+  if (!user) {
+    console.log("No token or logged in")
+    
+    return <Navigate to="/login" />;
+  }
   
 
 

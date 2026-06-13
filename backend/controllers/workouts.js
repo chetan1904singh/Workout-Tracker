@@ -2,6 +2,7 @@ import { Workout } from "../models/workoutModel.js";
 
 async function getAllWorkouts(req,res){
     try {
+        
         const workout=await Workout.find({})
         res.status(200).json({workout});
     } catch (error) {
